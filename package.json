@@ -2,7 +2,7 @@
   "name": "@kungfu-trader/action-approve",
   "version": "1.0.2-alpha.0",
   "main": "dist/index.js",
-  "repository": "https://github.com/kungfu-trader/action-approve",
+  "repository": "https://github.com/kungfu-systems/action-approve",
   "author": "Kungfu Trader",
   "license": "Apache-2.0",
   "scripts": {
