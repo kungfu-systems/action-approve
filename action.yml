@@ -6,5 +6,5 @@ inputs:
     description: "secrets.GITHUB_TOKEN"
     required: true
 runs:
-  using: "node16"
+  using: "node24"
   main: "dist/index.js"
