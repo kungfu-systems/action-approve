@@ -12798,7 +12798,7 @@ const main = async function () {
     repo: context.payload.repository.name,
     pullRequestNumber: pullRequestNumber,
   };
-  if(argv.token){
+  if (argv.token) {
     await lib.approveAndMerge(argv);
   }
 };
