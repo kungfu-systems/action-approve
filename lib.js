@@ -24,9 +24,9 @@ const isBatchPullRequestTag = async function (argv) {
   try {
     console.log('owner', argv.owner, 'repo', argv.repo, 'pullRequest', argv.pullRequestNumber);
     const pullRequestDetail = await octokit.request(
-      `GET /repos/kungfu-trader/${argv.repo}/pulls/${argv.pullRequestNumber}`,
+      'GET /repos/{owner}/{repo}/pulls/{pull_number}',
       {
-        owner: 'kungfu-trader',
+        owner: argv.owner,
         repo: argv.repo,
         pull_number: argv.pullRequestNumber,
         headers: {
@@ -53,8 +53,11 @@ const updateBranch = async function (argv) {
   try {
     console.log('owner', argv.owner, 'repo', argv.repo, 'pullRequest', argv.pullRequestNumber);
     const up = await octokit.request(
-      `PUT /repos/kungfu-trader/${argv.repo}/pulls/${argv.pullRequestNumber}/update-branch`,
+      'PUT /repos/{owner}/{repo}/pulls/{pull_number}/update-branch',
       {
+        owner: argv.owner,
+        repo: argv.repo,
+        pull_number: argv.pullRequestNumber,
         headers: {
           'X-GitHub-Api-Version': '2022-11-28',
         },
@@ -72,7 +75,7 @@ async function getBranchProtectionRuleForAlpha(argv) {
     const octokit = github.getOctokit(argv.token);
     const rulesQuery = await octokit.graphql(`
           query {
-            repository(name: "${argv.repo}", owner: "kungfu-trader") {
+            repository(name: "${argv.repo}", owner: "${argv.owner}") {
               branchProtectionRules(first:100) {
                 nodes {
                   id
@@ -146,10 +149,10 @@ const merge = async function (argv) {
     auth: argv.token,
   });
   try {
-    const ret = await octokit.request(`PUT /repos/kungfu-trader/${argv.repo}/pulls/${argv.pullRequestNumber}/merge`, {
-      owner: 'kungfu-trader',
+    const ret = await octokit.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge', {
+      owner: argv.owner,
       repo: argv.repo,
-      pull_number: 'PULL_NUMBER',
+      pull_number: argv.pullRequestNumber,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
       },
